@@ -10,4 +10,7 @@ urlpatterns = [
     path('admin/orders/', views.get_all_orders_admin, name='get_all_orders_admin'),
     path('admin/orders/<int:order_id>/accept/', views.accept_order, name='accept_order'),
     path('admin/orders/<int:order_id>/cancel/', views.cancel_order, name='cancel_order'),
+
+    # Product search endpoint
+    path('products/search/', views.search_products, name='search_products'),
 ]

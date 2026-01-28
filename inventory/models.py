@@ -11,5 +11,8 @@ class Order(models.Model):
     status = models.CharField(max_length=50, default="Pending")
     created_on = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'inventory_order'  # Add this to match the expected table name
+
     def __str__(self):
         return f"{self.item_name} (User {self.user_id})"

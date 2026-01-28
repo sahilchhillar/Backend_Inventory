@@ -11,6 +11,17 @@ from .models import Order
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
+inventory_list = ["apple", "banana", "cherries", "apricot", "blueberry"]
+
+@api_view(["POST"])
+@authentication_classes([JWTAuthenticationWithoutUserDB])
+@permission_classes([IsAuthenticated])
+
+def searchList(request):
+    value = request.headers.get("data-request")
+    matches = [item for item in inventory_list if item.startswith(value)]
+    return Response(data = {"message":matches}, status = status.HTTP_200_OK)
+
 # Create your views here.
 @api_view(["POST"])
 @authentication_classes([JWTAuthenticationWithoutUserDB])
