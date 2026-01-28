@@ -12,5 +12,5 @@ urlpatterns = [
     path('admin/orders/<int:order_id>/cancel/', views.cancel_order, name='cancel_order'),
 
     # Product search endpoint
-    path('products/search/', views.search_products, name='search_products'),
+    path('products/search/', views.searchList, name='search_products'),
 ]

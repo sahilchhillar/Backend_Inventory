@@ -132,7 +132,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "order_db",
         "USER": "root",
-        "PASSWORD": "Khadeeja01!",
+        "PASSWORD": "95402sahil",
         "HOST": "localhost",
         "PORT": "3306",
         "OPTIONS": {

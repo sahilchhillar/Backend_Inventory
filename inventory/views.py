@@ -13,14 +13,20 @@ from asgiref.sync import async_to_sync
 
 inventory_list = ["apple", "banana", "cherries", "apricot", "blueberry"]
 
-@api_view(["POST"])
+@api_view(["GET"])
 @authentication_classes([JWTAuthenticationWithoutUserDB])
 @permission_classes([IsAuthenticated])
-
 def searchList(request):
-    value = request.headers.get("data-request")
-    matches = [item for item in inventory_list if item.startswith(value)]
-    return Response(data = {"message":matches}, status = status.HTTP_200_OK)
+    value = request.GET.get('search', '').strip()
+    print(value)
+    
+    matches = []
+    for index, item in enumerate(inventory_list):
+        if item.lower().startswith(value.lower()):
+            matches.append({"id": index, "name": item})
+
+    print(matches)
+    return Response(data = {"message": matches}, status = status.HTTP_200_OK)
 
 # Create your views here.
 @api_view(["POST"])
@@ -86,7 +92,7 @@ def get_user_orders(request):
         username = request.headers.get("X-Username")
         orders = Order.objects.filter(username=username).order_by('-created_on')
         orderSerialiser = OrderItemSerializer(orders, many=True)
-        print(orderSerialiser.data)
+        # print(orderSerialiser.data)
         return Response(data={"orders": orderSerialiser.data}, status=status.HTTP_200_OK)
     except Exception as e:
         print(f"Error fetching orders: {str(e)}")
